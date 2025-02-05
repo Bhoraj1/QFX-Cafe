@@ -13,6 +13,7 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { error } = useSelector((state) => state.user);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -23,9 +24,10 @@ export default function Login() {
     if (!formData.email || !formData.password) {
       return dispatch(singInFailure("All fileds are required"));
     }
+
     try {
       dispatch(signInStart());
-      const res = await fetch("/api/auth/login", {
+      const res = await fetch(`${apiUrl}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

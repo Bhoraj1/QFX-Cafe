@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Items from "./pages/Items";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
+import QuestionAnswer from "./components/Question";
 
 function App() {
   return (
@@ -19,15 +20,15 @@ function App() {
             element={
               <>
                 <Hero />
+                <QuestionAnswer />
                 <Items />
               </>
             }
           ></Route>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route element={<PrivateRoute />}>
-          </Route>
-            <Route path="/dashboard" element={<Dashboard />} />
+          <Route element={<PrivateRoute />}></Route>
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
         <Footer />
       </BrowserRouter>

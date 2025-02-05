@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { db } from "../config/dbconn.js";
+import { db } from "../config/dbConn.js";
+
 
 const saltRounds = 7;
 

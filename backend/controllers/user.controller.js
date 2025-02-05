@@ -1,32 +1,13 @@
-// import { db } from "../config/dbconn";
+import { db } from "../config/dbConn.js";
 
-export const signout = (req, res) => {
+export const asnwers = async (req, res) => {
   try {
-    res.clearCookie("auth_token").status(200).json("User has been signed out");
-  } catch (error) {
-    console.error("Error signing out:", error);
-    res.status(500).json({ error: "Failed to sign out" });
+    const result = await db.query(
+      "SELECT answer FROM answers ORDER BY id LIMIT 1"
+    );
+    res.json({ answer: result.rows[0].answer });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
   }
 };
-
-// export const getUsers = async (req, res) => {
-//   if (!req.user.isAdmin) {
-//     return res
-//       .status(403)
-//       .json({ error: "You are not authorized to view all users" });
-//   }
-//   try {
-//     const users = await User.find().select("-password");
-//     const superAdmins = users.filter(
-//       (user) => user.role === "super_admin" || user.role === "admin"
-//     );
-//     const regularUsers = users.filter((user) => user.role !== "super_admin");
-
-//     // Concatenate super_admins first, followed by regular users
-//     const sortedUsers = [...superAdmins, ...regularUsers];
-//     res.status(200).json(sortedUsers);
-//   } catch (error) {
-//     console.error("Error fetching users:", error);
-//     res.status(500).json({ error: "Failed to fetch users" });
-//   }
-// };
